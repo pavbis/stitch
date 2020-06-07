@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  app:
+    restart: always
+    hostname: app
+    container_name: stitch_app
+    networks:
+      - stitch
+    ports:
+      - 8000:8000
+    build:
+      context: .
+    depends_on:
+      - postgres
+      - mariadb
+    environment:
+      PSQL_DB_USER: root
+      PSQL_DB_PASSWORD: root
+      PSQL_DB_HOST: postgres
+      PSQL_DB_PORT: 5432
+      PSQL_DB_NAME: testdb
+      PSQL_DB_SSLMODE: disable
+      MARIA_DB_USER: root
+      MARIA_DB_PASSWORD: root
+      MARIA_DB_HOST: mariadb
+      MARIA_DB_PORT: 3306
+      MARIA_DB_NAME: testdb
+
+  postgres:
+    image: postgres:12
+    container_name: stitch_postgres
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - stitch
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: testdb
+
+  mariadb:
+    image: mariadb:10.3
+    container_name: stitch_mariadb
+    networks:
+      - stitch
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+
+networks:
+  stitch:
