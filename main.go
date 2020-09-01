@@ -1,13 +1,13 @@
 package main
 
 import (
-	"bitbucket.org/billomat/stitch/config"
-	"bitbucket.org/billomat/stitch/monitor"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/lib/pq"
 	_ "github.com/lib/pq"
+	"github.com/pavbis/stitch/config"
+	"github.com/pavbis/stitch/monitor"
 	"log"
 	"time"
 )
@@ -61,7 +61,7 @@ func retrieveDataFromMariaDB() []ProducerStreamRelation {
 		mList = append(mList, producerStreamRelation)
 	}
 
-	mariaConnection.Close()
+	_ = mariaConnection.Close()
 
 	return mList
 }

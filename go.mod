@@ -1,4 +1,4 @@
-module bitbucket.org/billomat/stitch
+module github.com/pavbis/stitch
 
 go 1.14
 
